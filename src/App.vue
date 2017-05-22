@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -30,11 +30,11 @@ export default {
     //箭头函数前后要加空格
    this.$http.get('/api/seller').then((response) => {
      response = response.body;
-//     console.log(response)
+    console.log(response)
      //返回状态的判断
      if(response.errno === ERR_OK){
        this.seller= response.data;
-//       console.log(this.seller);
+      console.log(this.seller);
      }
    });
   },
@@ -47,12 +47,8 @@ export default {
 
 <style lang="scss" scoped>
   @import "common/css/mixin";
+ @import "common/css/icon";
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   .tab{
     display: flex;
     width: 100%;
