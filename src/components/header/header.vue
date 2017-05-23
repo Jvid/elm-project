@@ -18,11 +18,15 @@
     		</div>
     	</div>
     	<div v-if="seller.supports" class="support-count">
-    		<span class="count">{{seller.supports.length}}</span>
-    		<i></i>
+    		<span class="count">{{seller.supports.length}}个</span>
+    		<i class="icon-keyboard_arrow_right"></i>
     	</div>
     </div>
-    <div class="bullentin-wrapper"></div>
+    <div class="bullentin-wrapper">
+    	<span class="bulletin-title"></span>
+    	<span class="bulletin-text">{{seller.bulletin}}</span>
+    	<i class="icon-keyboard_arrow_right"></i>
+    </div>
   </div>
 </template>
 
@@ -43,10 +47,11 @@
 @import "../../common/css/mixin";
 	.header{
 		color:#fff;
-		background:#000;
+		background:#999;
 		.content-wrapper{
 			padding:24px 12px 18px 24px;
 			font-size: 0;
+			position:relative;
 			.avatar{
 				display:inline-block;
 				vertical-align:top;
@@ -114,6 +119,55 @@
 						font-size:10px;
 					}
 				}
+			}
+			.support-count{
+				position:absolute;
+				right: 12px;
+				bottom: 18px;
+				padding: 0 8px;
+				height: 24px;
+				line-height: 24px;
+				border-radius: 14px;
+				background: rgba(0,0,0,0.2);
+				text-align:center;
+				.count{
+					vertical-align:top;
+					font-size: 10px;
+				}
+				.icon-keyboard_arrow_right{
+					display:inline-block;
+					vertical-align:top;
+					width: 10px;
+					height:10px;
+					background:url('./keyboard_arrow_right.svg') no-repeat;
+					background-size:10px 10px;
+					margin:7px 0 0 2px;
+					// margin-left:2px;
+					// font-size: 10px;
+					// line-height: 24px;
+				}
+			}
+		}
+		.bullentin-wrapper{
+			height: 28px;
+			background: rgba(0,0,0,0.4);
+			line-height: 28px;
+			padding: 0 22px 0 12px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			position: relative;
+			.icon-keyboard_arrow_right{
+				display:inline-block;
+				vertical-align:top;
+				width: 10px;
+				height:10px;
+				background:url('./keyboard_arrow_right.svg') no-repeat;
+				background-size:10px 10px;
+				position: absolute;
+				top: 9px;
+				right: 12px;
+				// margin:9px 12px 0 0;
 			}
 		}
 	}
