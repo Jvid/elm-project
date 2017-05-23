@@ -18,8 +18,8 @@
     		</div>
     	</div>
     	<div v-if="seller.supports" class="support-count">
-    		<span class="count">{{seller.supports.length}}</span>
-    		<i></i>
+    		<span class="count">{{seller.supports.length}}个</span>
+    		<i class="icon-keyboard_arrow_right"></i>
     	</div>
     </div>
     <div class="bullentin-wrapper"></div>
@@ -41,10 +41,12 @@
 
 <style lang="scss" scoped>
 @import "../../common/css/mixin";
+/*@import "../../common/css/icon";*/
 	.header{
 		color:#fff;
-		background:#000;
+		background:#999;
 		.content-wrapper{
+      position: relative;
 			padding:24px 12px 18px 24px;
 			font-size: 0;
 			.avatar{
@@ -114,7 +116,28 @@
 						font-size:10px;
 					}
 				}
+
 			}
+      .support-count{
+        position: absolute;
+        right: 12px;
+        bottom: 18px;
+        padding: 0 8px;
+        height: 24px;
+        line-height:24px;
+        border-radius: 14px;
+        background: rgba(0,0,0,0.2);
+        text-align: center;
+        .count{
+          font-size:10px;
+          vertical-align: top;
+        }
+        .icon-keyboard_arrow_right{
+          margin-left: 2px;
+          line-height: 24px;
+          font-size: 10px;
+        }
+      }
 		}
 	}
 </style>
