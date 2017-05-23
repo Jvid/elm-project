@@ -30,11 +30,11 @@ export default {
     //箭头函数前后要加空格
    this.$http.get('/api/seller').then((response) => {
      response = response.body;
-    console.log(response)
+//    console.log(response)
      //返回状态的判断
      if(response.errno === ERR_OK){
        this.seller= response.data;
-      console.log(this.seller);
+//      console.log(this.seller);
      }
    });
   },
