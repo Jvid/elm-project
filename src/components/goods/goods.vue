@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li v-for="item in goods" class="menu-item">
+        <li v-for="(item, index) in goods" class="menu-item" :class="{'current': currentIndex===index}" @click="selectMenu(index,$event)">
           <span class="text border-1px">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
             {{item.name}}
@@ -12,7 +12,7 @@
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
-        <li v-for="item in goods" class="food-list">
+        <li v-for="item in goods" class="food-list foot-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods" class="food-item border-1px">
@@ -23,8 +23,7 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span class="count">月售{{food.sellCount}}份</span>
-                  <span>好评率{{food.rating}}%</span>
+                  <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{food.price}}</span>
@@ -36,12 +35,14 @@
         </li>
       </ul>
     </div>
+    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import BScroll from "better-scroll";
+import shopcart from '@/components/shopcart/shopcart';
   const ERR_OK = 0;
 export default {
   props: {
@@ -51,7 +52,9 @@ export default {
   },
   data() {
    return {
-     goods:{}
+     goods:[],
+     listHeight:[],
+     scrollY: 0
    }
   },
   created() {
@@ -59,20 +62,63 @@ export default {
     this.$http.get('/api/goods').then((response) => {
       response = response.body;
       if(response.errno === ERR_OK){
-//        console.log(response.data);
         this.goods = response.data;
         this.$nextTick(() => {
           this._initScroll();
+          this._calculateHeight();
         })
-        
+
       }
     })
   },
+  computed: {
+    currentIndex() {
+      for(let i=0,len=this.listHeight.length; i<len;i++){
+        let height1 = this.listHeight[i];
+        let height2 = this.listHeight[i+1];
+        if(!height2 || (this.scrollY >= height1 && this.scrollY < height2)){
+          return i;
+        }
+
+      }
+    }
+  },
   methods: {
     _initScroll() {
-      this.menunScroll = new BScroll(this.$refs.menuWrapper,{});
-      this.foodsScroll = new BScroll(this.$refs.foodsWrapper,{}); 
+      this.menunScroll = new BScroll(this.$refs.menuWrapper,{
+        click: true
+      });
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper,{
+        probeType: 3
+      });
+      this.foodsScroll.on('scroll',(pos) => {
+        this.scrollY = Math.abs(Math.round(pos.y));
+      })
+    },
+    _calculateHeight() {
+      let foodList = this.$refs.foodsWrapper.getElementsByClassName('foot-list-hook');
+      let height = 0;
+      this.listHeight.push(height);
+      for(let i = 0,len = foodList.length; i < len; i++){
+        let item = foodList[i];
+        height += item.clientHeight;
+        this.listHeight.push(height);
+      }
+    },
+    selectMenu(index,event) {
+      //当我们自己的配发的点击事件的时候event._constructed为true而浏览器默认的是false这样的话就可以将浏览器默认的点击事件return 确保在pc的时候也是执行一次
+      if(!event._constructed){
+        return;
+      }
+      let footList = this.$refs.foodsWrapper.getElementsByClassName('foot-list-hook');
+      let el = footList[index];
+      this.foodsScroll.scrollToElement(el,300);
+//      console.log(index);
+
     }
+  },
+  components:{
+    shopcart
   }
 }
 </script>
@@ -96,6 +142,16 @@ export default {
       width: 56px;
       line-height: 14px;
       padding:0 12px;
+      &.current{
+        margin-top: -1px;
+        position: relative;
+        z-index: 10;
+        background: #fff;
+        font-weight: 700;
+        .text{
+          @include border-no()
+        }
+       }
       .icon{
         display: inline-block;
         width: 12px;
@@ -169,9 +225,10 @@ export default {
         }
         .desc{
            margin-bottom: 8px;
+          line-height:12px;
         }
         .extra{
-          &.count{
+          .count{
             margin-right: 12px;
           }
         }
