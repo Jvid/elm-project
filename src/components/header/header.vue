@@ -67,7 +67,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import star from '@/components/star/star.vue';
 
   export default{
@@ -101,7 +101,6 @@ import star from '@/components/star/star.vue';
 
 <style lang="scss" scoped>
 @import "../../common/css/mixin";
-/*@import "../../common/css/icon";*/
 	.header{
 		overflow:hidden;
 		color:#fff;
@@ -200,12 +199,11 @@ import star from '@/components/star/star.vue';
 					vertical-align:top;
 					width: 10px;
 					height:10px;
-					background:url('./keyboard_arrow_right.svg') no-repeat;
-					background-size:10px 10px;
-					margin:7px 0 0 2px;
-					// margin-left:2px;
-					// font-size: 10px;
-					// line-height: 24px;
+					font-size: 10px;
+					color: #fff;
+					margin-left:2px;
+					font-size: 10px;
+					line-height: 24px;
 				}
 			}
 		}
@@ -221,15 +219,15 @@ import star from '@/components/star/star.vue';
 			position: relative;
 			.icon-keyboard_arrow_right{
 				display:inline-block;
-				// vertical-align:top;
+				vertical-align:top;
 				width: 10px;
 				height:10px;
-				background:url('./keyboard_arrow_right.svg') no-repeat;
-				background-size:10px 10px;
+				font-size: 10px;
+				color: #fff;
+				line-height: 10px;
 				position: absolute;
 				top: 9px;
 				right: 12px;
-				// margin:9px 12px 0 0;
 			}
 			.bulletin-title{
 				display: inline-block;
@@ -358,28 +356,13 @@ import star from '@/components/star/star.vue';
 				width: 32px;
 				height: 32px;
 				margin: -64px auto 0 auto;
-				-webkit-highlight-color: rgba(0,0,0,0);
-				cursor:pointer;
 				clear: both;
 				.icon-close{
 					display:inline-block;
-					vertical-align:bottom;
-					width:28px;
-					height:3px;
-					background:rgba(255,255,255,0.5);
-					transform: rotate(45deg);
-					position:relative;
-				}
-				.icon-close:before{
-					content: '';
-					display: inline-block;
-					width: 28px;
-					height: 3px;
-					background:rgba(255,255,255,0.5);
-					position: absolute;
-					left:0;
-					top:0;
-					transform: rotate(90deg);
+					text-align:center;
+					line-height:32px;
+					font-size: 32px;
+					color: rgba(255,255,255,0.5);
 				}
 			}
 		}

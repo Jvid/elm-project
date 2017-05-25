@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+require('../node_modules/font/icon.scss')
 
 Vue.config.productionTip = false
 

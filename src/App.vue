@@ -47,7 +47,8 @@ export default {
 
 <style lang="scss" scoped>
   @import "common/css/mixin";
- @import "common/css/icon";
+ // @import "common/css/icon";
+
 #app {
   .tab{
     display: flex;

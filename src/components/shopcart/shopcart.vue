@@ -4,7 +4,7 @@
       <div class="content-left">
         <div class="logo-wrapper">
           <div class="logo" :class="{'highlight':totalCount>0}">
-            <i class="icon_shopping_cart" :class="{'highlight':totalCount>0}">cart</i>
+            <i class="icon-shopping_cart" :class="{'highlight':totalCount>0}"></i>
           </div>
           <div class="num" v-show="totalCount>0">{{totalCount}}</div>
         </div>
@@ -26,12 +26,7 @@
       selectFoods: {
        type: Array,
         default() {
-          return [
-            {
-              price:10,
-              count:1
-            }
-          ];
+          return [];
         }
       },
       deliveryPrice: {
@@ -115,7 +110,9 @@
           &.highlight{
             background: rgb(0,160,220);
            }
-          .icon_shopping_cart{
+          .icon-shopping_cart{
+            width: 44px;
+            height: 44px;
             color:#80858a;
             line-height:44px;
             font-size: 24px;
