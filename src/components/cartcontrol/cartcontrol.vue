@@ -28,9 +28,11 @@ export default {
 			if(!event._constructed) {
 				return;
 			}
+			
 			if(!this.food.count){
 				Vue.set(this.food,'count',1);
 			}else{
+				console.log('add')
 				this.food.count++
 			}
 		},
@@ -38,6 +40,7 @@ export default {
 			if(!event._constructed) {
 				return;
 			}
+			console.log('des')
 			if(!this.food.count){
 				Vue.set(this.food,'count',0);
 			}else{
