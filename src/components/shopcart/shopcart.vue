@@ -11,7 +11,7 @@
         <div class="price" :class="{'highlight':totalPrice>0}">¥{{totalPrice}}</div>
         <div class="desc">另需配送费¥{{deliveryPrice}}元</div>
       </div>
-      <div class="content-right" @click="pay">
+      <div class="content-right" @click.stop.prevent="pay">
         <div class="pay" :class="payClass">
           {{payDesc}}
         </div>
@@ -31,19 +31,19 @@
                 <span>¥{{food.price*food.count}}</span>
               </div>
               <div class="cartcontrol-wrapper">
-                <cartcontrol :food="food"></cartcontrol> 
+                <cartcontrol :food="food"></cartcontrol>
               </div>
             </li>
           </ul>
         </div>
       </div>
-    </transition>  
+    </transition>
     <transition name="fade">
       <div class="list-mask" @click="hideList" v-show="listShow"></div>
-    </transition>  
+    </transition>
   </div>
-  
-  
+
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -122,7 +122,7 @@ import BScroll from "better-scroll";
           })
         }
         return show;
-       
+
       }
     },
     methods: {
@@ -135,12 +135,12 @@ import BScroll from "better-scroll";
       hideList() {
         this.fold = true;
       },
-      // pay() {
-      //   if(this.totalPrice < this,minPrice){
-      //     return;
-      //   }
-      //   window.alert(`支付${this.totalPrice}元`)
-      // },
+       pay() {
+         if(this.totalPrice < this.minPrice){
+           return;
+         }
+         window.alert(`支付${this.totalPrice}元`)
+       },
       empty() {
         this.selectFoods.forEach((food) => {
           food.count = 0;
@@ -272,7 +272,7 @@ import BScroll from "better-scroll";
     .list-header{
        height: 40px;
        line-height: 40px;
-       padding: 0 18px; 
+       padding: 0 18px;
        background:#f3f5f7;
        border-bottom: 1px solid rgba(7,17,27,0.1);
        .title{
@@ -316,7 +316,7 @@ import BScroll from "better-scroll";
           bottom: 6px;
         }
       }
-      
+
     }
   }
   .fold-enter-active,.fold-leave{
